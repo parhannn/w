@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 use App\Models\Laporan;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
 class HotlinedpcController extends Controller
 {
     public function index()
-{
-    $laporans = Laporan::all(); // Eloquent collection, bukan array
-    return view('hotline-dpc', compact('laporans'));
+    {
+        $user = Auth::user();
 
+        $query = Laporan::query();
+        
+        $laporans = $query->where('kabupaten', $user->kabupaten)->paginate(15)->withQueryString();
 
+        return view('hotline-dpc', compact('laporans'));
     }
 
     public function terimaLaporan($id)

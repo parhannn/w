@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanController extends Controller
 {
@@ -14,33 +15,35 @@ class LaporanController extends Controller
     }
 
     public function index()
-{
-    if (auth()->user()->role === 'dpd') {
-        $laporans = Laporan::with('user')->latest()->get();
-    } else {
-        $laporans = Laporan::where('pelapor', auth()->user()->name)->with('user')->latest()->get();
-    }
+    {
+        if (auth()->user()->role === 'dpd') {
+            $laporans = Laporan::with('user')->latest()->get();
+        } else {
+            $laporans = Laporan::where('pelapor', auth()->user()->name)->with('user')->latest()->get();
+        }
 
-    return view('hotline-dpc', compact('laporans'));
-}
+        return view('hotline-dpc', compact('laporans'));
+    }
 
     
 
     public function store(Request $request)
-{
-    $request->validate([
-        'isi_laporan' => 'required|string|min:50',
-    ]);
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'isi_laporan' => 'required|string|min:50',
+        ]);
         Laporan::create([
-    'pelapor' => auth()->user()->name,
-    'isi_laporan' => $request->isi_laporan,
-    'status' => 'Diterima',
-    'user_id' => auth()->id(),
-]);
+            'isi_laporan' => $request->isi_laporan,
+            'status' => 'Menunggu',
+            'user_id' => auth()->id(),
+            'kabupaten' => $user->kabupaten,
+        ]);
 
 
-    return redirect()->route('laporan.index')->with('success', 'Laporan berhasil dikirim!');
-}
+        return redirect()->route('hotline.dpc')->with('success', 'Laporan berhasil dikirim!');
+    }
 
     public function terima($id)
     {

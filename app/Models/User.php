@@ -9,7 +9,17 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class, 'pelapor');
+    }
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(Kabupaten::class);
+    }
+
+        /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -20,7 +30,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
+        'plain_password',
+        'remember_token',
+        'role',
+        'kabupaten',
+        'kabupaten_id'
     ];
 
     /**

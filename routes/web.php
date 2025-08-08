@@ -9,9 +9,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\HotlinedpdController;
 use App\Http\Controllers\HotlinedpcController;
-use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\DownloadDpdController;
+use App\Http\Controllers\DownloadDpcController;
 use App\Http\Controllers\LaporanController;
-
+use App\Http\Controllers\DashboardDpcController;
+use App\Http\Controllers\DashboardDpdController;
+use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\CreateAdminDpcController;
 // --------------------
 // AUTH (Login & Logout)
 // --------------------
@@ -48,9 +52,9 @@ Route::middleware('auth')->group(function () {
 // DASHBOARD
 // --------------------
 
-Route::get('/dashboard-dpd', function () {
-    return view('dashboard-dpd');
-})->middleware(['auth'])->name('dashboard.dpd');
+// Route::get('/dashboard-dpd', function () {
+//     return view('dashboard-dpd');
+// })->middleware(['auth'])->name('dashboard.dpd');
 
 Route::get('/dashboard-dpc', function () {
     return view('dashboard-dpc');
@@ -59,12 +63,10 @@ Route::get('/dashboard-dpc', function () {
 // --------------------
 // ADMIN
 // --------------------
-Route::get('/data-admin', function () {
-    return view('data-admin');
-})->name('data.admin');
+Route::get('/data-admin', [DataAdminController::class, 'index'])->name('data.admin');
 
-Route::get('/tambah-admin', [AdminController::class, 'create'])->name('admin.create');
-Route::post('/tambah-admin', [AdminController::class, 'store'])->name('admin.store');
+Route::get('/tambah-admin', [CreateAdminDpcController::class, 'index'])->name('create.admin');
+Route::post('/tambah-admin', [CreateAdminDpcController::class, 'store'])->name('create.admin.store');
 
 // --------------------
 // DATA ANGGOTA - DPD
@@ -86,9 +88,19 @@ Route::delete('/data-anggota-dpc/{anggota}', [AnggotaController::class, 'destroy
 // --------------------
 Route::get('/rekap-anggota', [AnggotaController::class, 'rekap']);
 
-Route::get('/downloaddpd', [DownloadController::class, 'index'])->name('download.data.dpd');
-Route::get('/downloaddpc', [DownloadController::class, 'index'])->name('download.data.dpc');
+Route::post('/laporan/terima/{id}', [LaporanController::class, 'terima'])->name('laporan.terima');
 
+Route::get('/download-data-pdf', [DownloadDpdController::class, 'generatePDF'])->name('download.data.pdf');
+
+Route::get('/dashboard-dpc', [DashboardDpcController::class, 'index'])->name('dashboard.dpc');
+Route::get('/dashboard-dpd', [DashboardDPDController::class, 'index'])->name('dashboard.dpd');
+
+Route::get('/downloaddpd', [DownloadDpdController::class, 'index'])->name('download.data.dpd');
+Route::get('/downloaddpd/export', [DownloadDpdController::class, 'export'])->name('downloaddpd.export');
+Route::get('/dpd/kecamatan', [DownloadDpdController::class, 'getKecamatan'])->name('downloaddpd.kecamatan');
+
+Route::get('/downloaddpc', [DownloadDpcController::class, 'index'])->name('download.data.dpc');
+Route::get('/downloaddpc/export', [DownloadDpcController::class, 'export'])->name('downloaddpc.export');
 // --------------------
 // LANDING PAGE
 // --------------------

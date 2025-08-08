@@ -12,19 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4169E1',
-                        secondary: '#FF6347'
+                        custom: '#4169E1',
                     },
                     borderRadius: {
-                        'none': '0px',
-                        'sm': '4px',
-                        DEFAULT: '8px',
-                        'md': '12px',
-                        'lg': '16px',
-                        'xl': '20px',
-                        '2xl': '24px',
-                        '3xl': '32px',
-                        'full': '9999px',
                         'button': '8px'
                     }
                 }
@@ -145,8 +135,8 @@
                             <th class="border px-4 py-3 text-left">Nama Lengkap</th>
                             <th class="border px-4 py-3 text-left">NIK</th>
                             <th class="border px-4 py-3 text-left">Alamat</th>
-                            <th class="border px-4 py-3 text-left   ">Kabupaten</th> 
-                            <th class="border px-4 py-3 text-left">Kecamatan</th> 
+                            <th class="border px-4 py-3 text-left   ">Kabupaten</th>
+                            <th class="border px-4 py-3 text-left">Kecamatan</th>
                             <th class="border px-4 py-3 text-left">Tanggal Lahir</th>
                             <th class="border px-4 py-3 text-left">Agama</th>
                             <th class="border px-4 py-3 text-left">Jenis Disabilitas</th>
@@ -615,6 +605,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("tanggal_lahir").setAttribute("max", today);
+        document.getElementById("editTanggal_lahir").setAttribute("max", today);
         $(document).ready(function() {
             function showNotification(message, type) {
                 var notification = $('<div class="alert alert-' + type +

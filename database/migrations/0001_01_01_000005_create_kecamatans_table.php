@@ -9,8 +9,8 @@ return new class extends Migration {
     {
         Schema::create('kecamatans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama'); // Nama kecamatan
-            $table->string('kabupaten_id'); // Nama kabupaten
+            $table->string('nama');
+            $table->string('kabupaten_id');
             $table->timestamps();
         });
     }

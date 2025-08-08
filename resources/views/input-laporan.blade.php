@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +35,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen py-12">
     <div class="max-w-2xl mx-auto px-6">
         <div class="bg-white rounded-2xl shadow-lg p-8">
@@ -47,41 +49,15 @@
 
             <form action="{{ route('laporan.store') }}" method="POST">
                 @csrf
-
-                {{-- Nama Pelapor --}}
-                <div class="mb-4">
-                    <label for="nama-pelapor" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Nama Pelapor
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="ri-user-line text-gray-400 text-sm"></i>
-                        </div>
-                        <input 
-                            type="text" 
-                            id="nama-pelapor" 
-                            name="nama_pelapor"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all duration-200 text-sm"
-                            placeholder="Masukkan nama lengkap Anda"
-                            required
-                        >
-                    </div>
-                </div>
-
                 {{-- Isi Laporan --}}
                 <div class="mb-4">
                     <label for="isi-laporan" class="block text-sm font-semibold text-gray-700 mb-2">
                         Isi Laporan
                     </label>
                     <div class="relative">
-                        <textarea 
-                            id="isi-laporan" 
-                            name="isi_laporan"
-                            rows="8"
+                        <textarea id="isi-laporan" name="isi_laporan" rows="8"
                             class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all duration-200 text-sm resize-none"
-                            placeholder="Jelaskan laporan Anda secara detail."
-                            required
-                        ></textarea>
+                            placeholder="Jelaskan laporan Anda secara detail." required></textarea>
                         <div class="absolute bottom-3 right-3">
                             <i class="ri-edit-line text-gray-300 text-sm"></i>
                         </div>
@@ -90,10 +66,8 @@
 
                 {{-- Tombol Submit --}}
                 <div class="pt-4">
-                    <button 
-                        type="submit" 
-                        class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-button transition-all duration-200 whitespace-nowrap flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
-                    >
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-button transition-all duration-200 whitespace-nowrap flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
                         <i class="ri-send-plane-line text-sm"></i>
                         <span>Kirim Laporan</span>
                     </button>
@@ -104,9 +78,9 @@
 
     {{-- Validasi --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
-            const namaInput = document.getElementById('nama-pelapor');
+            const namaInput = document.getElementById('pelapor');
             const isiInput = document.getElementById('isi-laporan');
             const submitBtn = form.querySelector('button[type="submit"]');
 
@@ -132,9 +106,9 @@
 
     {{-- Loading Simulasi --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
-            form.addEventListener('submit', function (e) {
+            form.addEventListener('submit', function(e) {
                 // e.preventDefault(); // Hapus ini jika ingin form benar-benar terkirim ke backend
 
                 const submitBtn = form.querySelector('button[type="submit"]');
@@ -149,4 +123,5 @@
         });
     </script>
 </body>
+
 </html>

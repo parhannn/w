@@ -52,13 +52,9 @@ class AnggotaController extends Controller
         $kabupatens = [$user->kabupaten];
         $kabupatenId = $user->kabupaten_id;
 
-        $anggotas = Anggota::with('kecamatan', 'kecamatan.kabupaten')
-            ->whereHas('kecamatan.kabupaten', function ($query) use ($kabupatenId) {
-                $query->where('id', $kabupatenId);
-            })->get();
         $kecamatans = Kecamatan::where('kabupaten_id', $kabupatenId)->get();
 
-        return view('data-anggota-dpc', compact('anggotas', 'kabupatens', 'kecamatans', 'data'));
+        return view('data-anggota-dpc', compact('kabupatens', 'kecamatans', 'data'));
     }
 
     public function create()

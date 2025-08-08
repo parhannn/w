@@ -11,19 +11,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4169E1',
-                        secondary: '#FF6347'
+                        custom: '#4169E1',
                     },
                     borderRadius: {
-                        'none': '0px',
-                        'sm': '4px',
-                        DEFAULT: '8px',
-                        'md': '12px',
-                        'lg': '16px',
-                        'xl': '20px',
-                        '2xl': '24px',
-                        '3xl': '32px',
-                        'full': '9999px',
                         'button': '8px'
                     }
                 }
@@ -34,6 +24,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
     <style>
         :where([class^="ri-"])::before {
@@ -83,7 +75,9 @@
     </header>
     <main class="container mx-auto px-4 py-6">
         <div class="bg-white rounded shadow-sm p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-6">Statistik Utama Kabupaten {{ Auth::user()->kabupaten }}</h2>
+            <h2 class="text-xl font-semibold mb-6">
+                Statistik Utama {{ Auth::user()->kabupaten ?? '-' }}
+            </h2>
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="w-full md:w-1/2">
                     <div id="pieChart" class="h-80 w-full"></div>
@@ -93,129 +87,10 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded shadow-sm p-6 mb-6">
-            <div class="mb-6">
-                <h2 class="text-xl font-semibold">Data Anggota Per Kecamatan</h2>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="bg-gray-50">
-                            <th class="border px-4 py-3 text-left">Kecamatan</th>
-                            <th class="border px-4 py-3 text-center">Total</th>
-                            <th class="border px-4 py-3 text-center">Tunanetra</th>
-                            <th class="border px-4 py-3 text-center">Tunarungu</th>
-                            <th class="border px-4 py-3 text-center">Tunawicara</th>
-                            <th class="border px-4 py-3 text-center">Tunagrahita</th>
-                            <th class="border px-4 py-3 text-center">Tunadaksa</th>
-                            <th class="border px-4 py-3 text-center">Tunalaras</th>
-                            <th class="border px-4 py-3 text-center">Disabilitas Ganda</th>
-                            <th class="border px-4 py-3 text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border px-4 py-3">Gedong Tataan</td>
-                            <td class="border px-4 py-3 text-center">128</td>
-                            <td class="border px-4 py-3 text-center">32</td>
-                            <td class="border px-4 py-3 text-center">24</td>
-                            <td class="border px-4 py-3 text-center">18</td>
-                            <td class="border px-4 py-3 text-center">16</td>
-                            <td class="border px-4 py-3 text-center">22</td>
-                            <td class="border px-4 py-3 text-center">10</td>
-                            <td class="border px-4 py-3 text-center">6</td>
-                            <td class="border px-4 py-3 text-center">
-                                <div class="flex justify-center space-x-2">
-                                    <button
-                                        class="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 rounded">
-                                        <i class="ri-eye-line"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-3">Negeri Katon</td>
-                            <td class="border px-4 py-3 text-center">96</td>
-                            <td class="border px-4 py-3 text-center">24</td>
-                            <td class="border px-4 py-3 text-center">18</td>
-                            <td class="border px-4 py-3 text-center">12</td>
-                            <td class="border px-4 py-3 text-center">14</td>
-                            <td class="border px-4 py-3 text-center">16</td>
-                            <td class="border px-4 py-3 text-center">8</td>
-                            <td class="border px-4 py-3 text-center">4</td>
-                            <td class="border px-4 py-3 text-center">
-                                <div class="flex justify-center space-x-2">
-                                    <button
-                                        class="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 rounded">
-                                        <i class="ri-eye-line"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-3">Tegineneng</td>
-                            <td class="border px-4 py-3 text-center">82</td>
-                            <td class="border px-4 py-3 text-center">20</td>
-                            <td class="border px-4 py-3 text-center">15</td>
-                            <td class="border px-4 py-3 text-center">11</td>
-                            <td class="border px-4 py-3 text-center">12</td>
-                            <td class="border px-4 py-3 text-center">14</td>
-                            <td class="border px-4 py-3 text-center">7</td>
-                            <td class="border px-4 py-3 text-center">3</td>
-                            <td class="border px-4 py-3 text-center">
-                                <div class="flex justify-center space-x-2">
-                                    <button
-                                        class="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 rounded">
-                                        <i class="ri-eye-line"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-3">Way Lima</td>
-                            <td class="border px-4 py-3 text-center">74</td>
-                            <td class="border px-4 py-3 text-center">18</td>
-                            <td class="border px-4 py-3 text-center">14</td>
-                            <td class="border px-4 py-3 text-center">10</td>
-                            <td class="border px-4 py-3 text-center">11</td>
-                            <td class="border px-4 py-3 text-center">12</td>
-                            <td class="border px-4 py-3 text-center">6</td>
-                            <td class="border px-4 py-3 text-center">3</td>
-                            <td class="border px-4 py-3 text-center">
-                                <div class="flex justify-center space-x-2">
-                                    <button
-                                        class="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 rounded">
-                                        <i class="ri-eye-line"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-3">Padang Cermin</td>
-                            <td class="border px-4 py-3 text-center">68</td>
-                            <td class="border px-4 py-3 text-center">16</td>
-                            <td class="border px-4 py-3 text-center">13</td>
-                            <td class="border px-4 py-3 text-center">9</td>
-                            <td class="border px-4 py-3 text-center">10</td>
-                            <td class="border px-4 py-3 text-center">11</td>
-                            <td class="border px-4 py-3 text-center">6</td>
-                            <td class="border px-4 py-3 text-center">3</td>
-                            <td class="border px-4 py-3 text-center">
-                                <div class="flex justify-center space-x-2">
-                                    <button
-                                        class="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 rounded">
-                                        <i class="ri-eye-line"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const kecamatanSummary = @json($dataPerKecamatan);
             const pieChart = echarts.init(document.getElementById('pieChart'));
             const pieOption = {
                 animation: false,
@@ -228,16 +103,17 @@
                 },
                 legend: {
                     orient: 'vertical',
-                    right: 10,
+                    left: 10,
                     top: 'center',
                     textStyle: {
                         color: '#1f2937'
                     }
                 },
                 series: [{
-                    name: 'Jenis Disabilitas',
+                    name: 'Kecamatan',
                     type: 'pie',
                     radius: ['40%', '70%'],
+                    center: ['65%', '50%'],
                     avoidLabelOverlap: false,
                     itemStyle: {
                         borderRadius: 8,
@@ -258,69 +134,39 @@
                     labelLine: {
                         show: false
                     },
-                    data: [{
-                            value: 110,
-                            name: 'Tunanetra',
-                            itemStyle: {
-                                color: 'rgba(87, 181, 231, 1)'
-                            }
-                        },
-                        {
-                            value: 84,
-                            name: 'Tunarungu',
-                            itemStyle: {
-                                color: 'rgba(141, 211, 199, 1)'
-                            }
-                        },
-                        {
-                            value: 60,
-                            name: 'Tunawicara',
-                            itemStyle: {
-                                color: 'rgba(251, 191, 114, 1)'
-                            }
-                        },
-                        {
-                            value: 63,
-                            name: 'Tunagrahita',
-                            itemStyle: {
-                                color: 'rgba(252, 141, 98, 1)'
-                            }
-                        },
-                        {
-                            value: 75,
-                            name: 'Tunadaksa',
-                            itemStyle: {
-                                color: 'rgba(145, 169, 216, 1)'
-                            }
-                        },
-                        {
-                            value: 37,
-                            name: 'Tunalaras',
-                            itemStyle: {
-                                color: 'rgba(239, 155, 196, 1)'
-                            }
-                        },
-                        {
-                            value: 19,
-                            name: 'Disabilitas Ganda',
-                            itemStyle: {
-                                color: 'rgba(187, 187, 187, 1)'
-                            }
-                        }
-                    ]
+                    data: kecamatanSummary
                 }]
             };
             pieChart.setOption(pieOption);
             // Bar Chart
+            const disabilitasSummary = @json($disabilitasSummary);
+            const jenisDisabilitas = ['Tunanetra', 'Tunarungu', 'Tunawicara', 'Tunagrahita', 'Tunadaksa',
+                'Tunalaras', 'Disabilitas Ganda'
+            ];
+
+            // Ambil label kecamatan
+            const kecamatanLabels = disabilitasSummary.map(item => item.kecamatan);
+
+            // Ambil data per jenis disabilitas
+            const seriesData = jenisDisabilitas.map(jenis => ({
+                name: jenis,
+                type: 'bar',
+                stack: 'total',
+                emphasis: {
+                    focus: 'series'
+                },
+                data: disabilitasSummary.map(item => item[jenis])
+            }));
+
             const barChart = echarts.init(document.getElementById('barChart'));
             const barOption = {
-                animation: false,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    },
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    }
+                },
+                legend: {
                     textStyle: {
                         color: '#1f2937'
                     }
@@ -333,9 +179,7 @@
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['Tunanetra', 'Tunarungu', 'Tunawicara', 'Tunagrahita', 'Tunadaksa', 'Tunalaras',
-                        'Disabilitas Ganda'
-                    ],
+                    data: kecamatanLabels,
                     axisLabel: {
                         rotate: 45,
                         color: '#1f2937'
@@ -347,16 +191,7 @@
                         color: '#1f2937'
                     }
                 },
-                series: [{
-                    name: 'Jumlah',
-                    type: 'bar',
-                    barWidth: '60%',
-                    data: [110, 84, 60, 63, 75, 37, 19],
-                    itemStyle: {
-                        color: 'rgba(87, 181, 231, 1)',
-                        borderRadius: [4, 4, 0, 0]
-                    }
-                }]
+                series: seriesData
             };
             barChart.setOption(barOption);
             window.addEventListener('resize', function() {

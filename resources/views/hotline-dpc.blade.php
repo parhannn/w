@@ -2,7 +2,7 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Admin DPC - Sistem Informasi Pendataan Penyandang Disabilitas</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
@@ -11,8 +11,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4169E1',
-                        secondary: '#FF6347'
+                        custom: '#4169E1',
                     },
                     borderRadius: {
                         'button': '8px'
@@ -23,6 +22,8 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
     <style>
         body {
@@ -37,19 +38,18 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-50 min-h-screen flex flex-col">
     <!-- Header -->
     <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <img src="hwdi.jpg" class="h-8 w-auto" alt="HWDI Logo" />
-                    <h1 class="ml-3 text-xl font-semibold text-gray-900">
-                        Sistem Informasi Pendataan Penyandang Disabilitas HWDI LAMPUNG
-                    </h1>
+                    <img src="hwdi.jpg" class="h-8 w-auto" />
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900">Sistem Informasi Pendataan Penyandang
+                        Disabilitas HWDI LAMPUNG</h1>
                 </div>
                 <a href="{{ route('logout') }}"
-                    class="rounded bg-primary hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium">Logout</a>
+                    class="rounded bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium">Logout</a>
             </div>
         </div>
     </header>
@@ -65,7 +65,7 @@
                     Anggota</a>
                 <a href="{{ route('download.data.dpc') }}"
                     class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
-                    Data</a>
+                    Data Anggota</a>
                 <a href="{{ route('hotline.dpc') }}"
                     class="inline-flex items-center px-1 pt-1 border-b-2 border-primary text-sm font-medium text-gray-900">Hotline</a>
             </div>
@@ -87,9 +87,6 @@
                             <option>Diterima</option>
                             <option>Ditolak</option>
                         </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                            <i class="ri-arrow-down-s-line text-gray-400"></i>
-                        </div>
                     </div>
                     <div class="relative">
                         <input type="text" placeholder="Cari laporan..."
@@ -112,17 +109,17 @@
                         <thead class="bg-gray-50 border-b">
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">No</th>
-                                <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">Pelapor</th>
                                 <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">Isi Laporan
                                 </th>
                                 <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">Kabupaten
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($laporans as $index => $laporan)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $laporan->pelapor }}</td>
                                     <td class="px-6 py-4 whitespace-normal max-w-md">{{ $laporan->isi_laporan }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if (auth()->user()->role === 'dpd' && $laporan->status !== 'Dibaca')
@@ -135,6 +132,7 @@
                                             <span class="text-gray-500">{{ $laporan->status }}</span>
                                         @endif
                                     </td>
+                                    <td class="px-6 py-4 whitespace-normal max-w-md">{{ $laporan->kabupaten }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

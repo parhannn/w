@@ -9,7 +9,10 @@ class Kecamatan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama'];
+    protected $fillable = [
+        'nama',
+        'kabupaten_id'
+    ];
 
     public function anggotas()
     {
@@ -17,8 +20,7 @@ class Kecamatan extends Model
     }
 
     public function kabupaten()
-{
-    return $this->belongsTo(Kabupaten::class);
-}
-
+    {
+        return $this->belongsTo(Kabupaten::class);
+    }
 }

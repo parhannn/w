@@ -34,11 +34,6 @@ class AdminController extends Controller
         return view('modal-anggota', compact('data', 'kabupaten'));
     }
 
-    public function create()
-    {
-        return view('tambah-admin'); 
-    }
-
     public function store(Request $request)
     {
         $request->validate([

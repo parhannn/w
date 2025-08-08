@@ -32,6 +32,8 @@ class AuthController extends Controller
             }
         }
 
+        dd("salah");
+
         return redirect()->back()->withErrors([
             'email' => 'Email atau password salah',
         ]);

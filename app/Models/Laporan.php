@@ -9,13 +9,15 @@ class Laporan extends Model
     protected $table = 'laporans';
 
     protected $fillable = [
-    'pelapor', 'isi_laporan', 'status', 'user_id',
-
+        'isi_laporan', 
+        'status', 
+        'user_id', 
+        'kabupaten'
     ];
 
     public function user()
-{
-    return $this->belongsTo(User::class, 'user_id');
-}
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 }
