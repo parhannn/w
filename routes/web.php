@@ -67,6 +67,8 @@ Route::get('/data-admin', [DataAdminController::class, 'index'])->name('data.adm
 
 Route::get('/tambah-admin', [CreateAdminDpcController::class, 'index'])->name('create.admin');
 Route::post('/tambah-admin', [CreateAdminDpcController::class, 'store'])->name('create.admin.store');
+Route::put('/tambah-admin/{user}', [CreateAdminDpcController::class, 'edit'])->name('create.admin.edit');
+Route::delete('/tambah-admin/{user}', [CreateAdminDpcController::class, 'destroy'])->name('create.admin.destroy');
 
 // --------------------
 // DATA ANGGOTA - DPD

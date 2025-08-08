@@ -87,5 +87,88 @@ class CreateAdminDpcController extends Controller
 
         return redirect()->route('data.admin')->with('success', 'Laporan berhasil dikirim!');
     }
+
+    public function edit(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|string',
+            'kabupaten' => 'required|string|max:255',
+        ]);
+
+        $kabupaten = $request->input('kabupaten');
+
+        $kabupatenId = null;
+
+        switch ($kabupaten) {
+            case 'Lampung Selatan':
+                $kabupatenId = 1;
+                break;
+            case 'Lampung Barat':
+                $kabupatenId = 2;
+                break;
+            case 'Lampung Tengah':
+                $kabupatenId = 3;
+                break;
+            case 'Lampung Timur':
+                $kabupatenId = 4;
+                break;
+            case 'Mesuji':
+                $kabupatenId = 5;
+                break;
+            case 'Pringsewu':
+                $kabupatenId = 6;
+                break;
+            case 'Pesisir Barat':
+                $kabupatenId = 7;
+                break;
+            case 'Tanggamus':
+                $kabupatenId = 8;
+                break;
+            case 'Tulang Bawang':
+                $kabupatenId = 9;
+                break;
+            case 'Tulang Bawang Barat':
+                $kabupatenId = 10;
+                break;
+            case 'Way Kanan':
+                $kabupatenId = 11;
+                break;
+            case 'Bandar Lampung':
+                $kabupatenId = 12;
+                break;
+            case 'Metro':
+                $kabupatenId = 13;
+                break;
+            case 'Pesawaran':
+                $kabupatenId = 14;
+                break;
+            case 'Lampung Utara':
+                $kabupatenId = 15;
+                break;
+            default:
+                $kabupatenId = null;
+                break;
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'plain_password' => $request->password ?: $user->plain_password,
+            'kabupaten' => $request->kabupaten,
+            'kabupaten_id' => $kabupatenId
+        ]);
+
+        return redirect()->route('data.admin')->with('success', 'Data admin berhasil diperbarui!');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('data.admin')->with('success', 'Data admin berhasil dihapus.');
+    }
 }
 
