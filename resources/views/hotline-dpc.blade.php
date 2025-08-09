@@ -30,6 +30,34 @@
             font-family: 'Inter', sans-serif;
         }
 
+        @media (max-width: 768px) {
+            .max-w-8xl {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .title {
+                display: none;
+            }
+
+            .btn-add {
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+            }
+
+            .h2-title {
+                display: none;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
@@ -45,7 +73,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <img src="hwdi.jpg" class="h-8 w-auto" />
-                    <h1 class="ml-3 text-xl font-semibold text-gray-900">Sistem Informasi Pendataan Penyandang
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900 h2-title">Sistem Informasi Pendataan Penyandang
                         Disabilitas HWDI LAMPUNG</h1>
                 </div>
                 <a href="{{ route('logout') }}"
@@ -57,17 +85,17 @@
     <!-- Navigation -->
     <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center space-x-8 h-14">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 lg:space-x-8 h-12 sm:h-14">
                 <a href="{{ route('dashboard.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Ringkasan</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Ringkasan</a>
                 <a href="{{ route('data.anggota.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Data
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Data
                     Anggota</a>
                 <a href="{{ route('download.data.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-primary text-sm font-medium text-gray-900">Hotline</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-custom text-xs sm:text-sm font-medium text-gray-900">Hotline</a>
             </div>
         </div>
     </nav>
@@ -76,27 +104,39 @@
     <main class="px-6 py-8">
         <div class="max-w-7xl mx-auto space-y-6">
             <!-- Page Title + Actions -->
-            <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-gray-900">Daftar Laporan</h2>
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <select
-                            class="bg-white border border-gray-300 rounded-button px-4 py-2 pr-8 text-sm text-gray-700 focus:ring-2 focus:ring-primary">
-                            <option>Semua Status</option>
-                            <option>Menunggu</option>
-                            <option>Diterima</option>
-                            <option>Ditolak</option>
-                        </select>
-                    </div>
-                    <div class="relative">
-                        <input type="text" placeholder="Cari laporan..."
-                            class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm focus:ring-2 focus:ring-primary">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="ri-search-line text-gray-400"></i>
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <!-- Judul -->
+                <h2 class="text-xl md:text-2xl font-bold text-gray-900 h2-title">
+                    Daftar Laporan
+                </h2>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
+                    <form action="{{ route('laporan.index') }}" method="GET"
+                        class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <!-- Filter Status -->
+                        <div class="relative w-full sm:w-auto">
+                            <select
+                                class="bg-white border border-gray-300 rounded-button px-4 py-2 pr-8 text-sm text-gray-700 focus:ring-2 focus:ring-primary w-full sm:w-auto"
+                                name="status" onchange="this.form.submit()">
+                                <option value="">Semua Status</option>
+                                <option value="Menunggu">Menunggu</option>
+                                <option value="Dibaca">Dibaca</option>
+                            </select>
                         </div>
-                    </div>
+
+                        <!-- Pencarian -->
+                        <div class="relative w-full sm:w-64">
+                            <input type="text" placeholder="Cari laporan..."
+                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm focus:ring-2 focus:ring-primary w-full">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ri-search-line text-gray-400"></i>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Tombol Buat Laporan -->
                     <a href="{{ route('laporan.create') }}"
-                        class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-button hover:bg-blue-700">
+                        class="inline-flex items-center justify-center px-4 py-2 bg-primary text-white rounded-button hover:bg-blue-700 w-full sm:w-auto">
                         <i class="ri-add-line mr-2"></i> Buat Laporan Baru
                     </a>
                 </div>
@@ -135,6 +175,12 @@
                                     <td class="px-6 py-4 whitespace-normal max-w-md">{{ $laporan->kabupaten }}</td>
                                 </tr>
                             @endforeach
+                            @if ($laporans->isEmpty())
+                                <tr>
+                                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">Tidak ada laporan
+                                        ditemukan</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -164,6 +210,12 @@
             </div>
         </div>
     </main>
+
+    <footer class="bg-gray-100 mt-auto">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <p class="text-center text-gray-600 text-sm">© 2024 HWDI Lampung. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

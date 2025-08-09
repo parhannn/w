@@ -44,6 +44,16 @@
             .title {
                 display: none;
             }
+
+            .btn-add {
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+            }
+
+            table {
+                font-size: 12px;
+            }
         }
 
         body {
@@ -89,67 +99,67 @@
     </header>
     <main class="container mx-auto px-4 py-6">
         <div class="bg-white rounded shadow-sm p-6 mb-6">
-            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-                <div class="flex items-center gap-4">
-                    <form action="{{ route('data.anggota.dpc') }}" method="GET" class="flex gap-4">
+            <!-- Filter dan tombol -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                <div class="flex flex-col sm:flex-row sm:flex-wrap gap-4">
+                    <form action="{{ route('data.anggota.dpc') }}" method="GET"
+                        class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                         <input type="text" name="search" placeholder="🔎 Cari nama anggota..."
-                            class="pl-4 pr-4 py-2 border rounded-lg w-64 text-sm" value="{{ request('search') }}">
+                            class="pl-4 pr-4 py-2 border rounded-lg w-full sm:w-64 text-sm"
+                            value="{{ request('search') }}">
 
-                        <div>
-                            <select name="kecamatan" class="border rounded-lg px-4 py-2 text-sm pr-8"
-                                onchange="this.form.submit()">
-                                <option value="">Semua Kecamatan</option>
-                                @foreach ($kecamatans as $kecamatan)
-                                    <option value="{{ $kecamatan->nama }}"
-                                        {{ request('kecamatan') == $kecamatan->nama ? 'selected' : '' }}>
-                                        {{ $kecamatan->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select name="kecamatan" class="border rounded-lg px-4 py-2 text-sm pr-8 w-full sm:w-auto"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Kecamatan</option>
+                            @foreach ($kecamatans as $kecamatan)
+                                <option value="{{ $kecamatan->nama }}"
+                                    {{ request('kecamatan') == $kecamatan->nama ? 'selected' : '' }}>
+                                    {{ $kecamatan->nama }}
+                                </option>
+                            @endforeach
+                        </select>
 
-                        <div>
-                            <select name="jenis_disabilitas" class="border rounded-lg px-4 py-2 text-sm pr-8"
-                                onchange="this.form.submit()">
-                                <option value="">Semua Jenis Disabilitas</option>
-                                <option value="Tunanetra"
-                                    {{ request('jenis_disabilitas') == 'Tunanetra' ? 'selected' : '' }}>Tunanetra
-                                </option>
-                                <option value="Tunarungu"
-                                    {{ request('jenis_disabilitas') == 'Tunarungu' ? 'selected' : '' }}>Tunarungu
-                                </option>
-                                <option value="Tunawicara"
-                                    {{ request('jenis_disabilitas') == 'Tunawicara' ? 'selected' : '' }}>Tunawicara
-                                </option>
-                                <option value="Tunagrahita"
-                                    {{ request('jenis_disabilitas') == 'Tunagrahita' ? 'selected' : '' }}>Tunagrahita
-                                </option>
-                                <option value="Tunadaksa"
-                                    {{ request('jenis_disabilitas') == 'Tunadaksa' ? 'selected' : '' }}>Tunadaksa
-                                </option>
-                                <option value="Tunalaras"
-                                    {{ request('jenis_disabilitas') == 'Tunalaras' ? 'selected' : '' }}>Tunalaras
-                                </option>
-                                <option value="Disabilitas Ganda"
-                                    {{ request('jenis_disabilitas') == 'Disabilitas Ganda' ? 'selected' : '' }}>
-                                    Disabilitas Ganda</option>
-                            </select>
-                        </div>
+                        <select name="jenis_disabilitas"
+                            class="border rounded-lg px-4 py-2 text-sm pr-8 w-full sm:w-auto"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Jenis Disabilitas</option>
+                            <option value="Tunanetra"
+                                {{ request('jenis_disabilitas') == 'Tunanetra' ? 'selected' : '' }}>Tunanetra</option>
+                            <option value="Tunarungu"
+                                {{ request('jenis_disabilitas') == 'Tunarungu' ? 'selected' : '' }}>Tunarungu</option>
+                            <option value="Tunawicara"
+                                {{ request('jenis_disabilitas') == 'Tunawicara' ? 'selected' : '' }}>Tunawicara
+                            </option>
+                            <option value="Tunagrahita"
+                                {{ request('jenis_disabilitas') == 'Tunagrahita' ? 'selected' : '' }}>Tunagrahita
+                            </option>
+                            <option value="Tunadaksa"
+                                {{ request('jenis_disabilitas') == 'Tunadaksa' ? 'selected' : '' }}>Tunadaksa</option>
+                            <option value="Tunalaras"
+                                {{ request('jenis_disabilitas') == 'Tunalaras' ? 'selected' : '' }}>Tunalaras</option>
+                            <option value="Disabilitas Ganda"
+                                {{ request('jenis_disabilitas') == 'Disabilitas Ganda' ? 'selected' : '' }}>Disabilitas
+                                Ganda</option>
+                        </select>
                     </form>
                 </div>
-                <button class="bg-primary text-white px-4 py-2 rounded-button flex items-center whitespace-nowrap"
+
+                <button
+                    class="bg-primary text-white px-4 py-2 rounded-button flex items-center whitespace-nowrap self-start md:self-auto btn-add"
                     data-bs-toggle="modal" data-bs-target="#tambahModal">
                     <i class="ri-add-line mr-2"></i> Tambah Anggota
                 </button>
             </div>
+
+            <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
+                <table class="w-full border-collapse min-w-[800px]">
                     <thead>
-                        <tr class="bg-gray-50   ">
+                        <tr class="bg-gray-50">
                             <th class="border px-4 py-3 text-left">Nama Lengkap</th>
                             <th class="border px-4 py-3 text-left">NIK</th>
                             <th class="border px-4 py-3 text-left">Alamat</th>
-                            <th class="border px-4 py-3 text-left   ">Kabupaten</th>
+                            <th class="border px-4 py-3 text-left">Kabupaten</th>
                             <th class="border px-4 py-3 text-left">Kecamatan</th>
                             <th class="border px-4 py-3 text-left">Tanggal Lahir</th>
                             <th class="border px-4 py-3 text-left">Agama</th>
@@ -199,13 +209,13 @@
                     </tbody>
                 </table>
             </div>
-            <div class="flex items-center justify-between mt-6">
-                <p class="text-sm text-gray-600">
-                    Menampilkan {{ $data->firstItem() }} - {{ $data->lastItem() }} dari
-                    {{ $data->total() }} data
+
+            <!-- Pagination -->
+            <div class="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
+                <p class="text-sm text-gray-600 text-center sm:text-left">
+                    Menampilkan {{ $data->firstItem() }} - {{ $data->lastItem() }} dari {{ $data->total() }} data
                 </p>
                 <div class="flex items-center space-x-2">
-                    {{-- Tombol Previous --}}
                     @if ($data->onFirstPage())
                         <button class="px-3 py-1 border rounded text-sm text-gray-400" disabled>Previous</button>
                     @else
@@ -213,7 +223,6 @@
                             class="px-3 py-1 border rounded hover:bg-gray-50 text-sm">Previous</a>
                     @endif
 
-                    {{-- Nomor halaman --}}
                     @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
                         @if ($page == $data->currentPage())
                             <span
@@ -224,7 +233,6 @@
                         @endif
                     @endforeach
 
-                    {{-- Tombol Next --}}
                     @if ($data->hasMorePages())
                         <a href="{{ $data->nextPageUrl() }}"
                             class="px-3 py-1 border rounded hover:bg-gray-50 text-sm">Next</a>
@@ -235,6 +243,12 @@
             </div>
         </div>
     </main>
+
+    <footer class="bg-gray-100 mt-auto">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <p class="text-center text-gray-600 text-sm">© 2024 HWDI Lampung. All rights reserved.</p>
+        </div>
+    </footer>
 
     <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

@@ -15,6 +15,25 @@
     </script>
     <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
         data-border-radius="small"></script>
+    <style>
+        @media (max-width: 768px) {
+            .max-w-8xl {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .title {
+                display: none;
+            }
+
+            .h2-title {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -23,7 +42,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <img src="hwdi.jpg" class="h-8 w-auto" />
-                    <h1 class="ml-3 text-xl font-semibold text-gray-900">Sistem Informasi Pendataan Penyandang
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900 title">Sistem Informasi Pendataan Penyandang
                         Disabilitas HWDI LAMPUNG</h1>
                 </div>
                 <a href="{{ route('logout') }}"
@@ -32,8 +51,8 @@
         </div>
     </header>
     <nav class="bg-white shadow-sm">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center space-x-8 h-14">
+        <div class="max-w-8xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 lg:space-x-8 h-12 sm:h-14">
                 <a href="{{ route('dashboard.dpd') }}"
                     class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Ringkasan</a>
                 <a href="{{ route('data.admin') }}"
@@ -52,52 +71,80 @@
     </nav>
     <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow overflow-hidden">
+
+            {{-- Notif sukses dipindah ke sini --}}
+            @if (session('success'))
+                <div id="success-alert"
+                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative m-4">
+                    <span class="block sm:inline text-sm">{{ session('success') }}</span>
+                </div>
+            @endif
+
             <div class="px-6 py-5 border-b border-gray-200">
                 <h2 class="text-lg font-medium text-gray-900">Daftar Laporan</h2>
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">No</th>
-                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">Kabupaten/Kota
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">No</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Kabupaten/Kota
                             </th>
-                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">Isi Laporan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Isi Laporan</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($laporans as $index => $laporan)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $laporan->kabupaten }}</td>
-                            <td class="px-6 py-4 whitespace-normal max-w-md">{{ $laporan->isi_laporan }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            @if ($laporan->status === 'Menunggu')
-                                <form action="{{ route('laporan.terima', $laporan->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                        class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none">
-                                        <i class="fas fa-check-circle mr-2"></i> Terima Laporan
-                                    </button>
-                                </form>
-                            @else
-                                <span class="text-green-600 font-semibold">Laporan sudah diterima.</span>
-                            @endif
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap">{{ $index + 1 }}</td>
+                                <td class="px-4 py-2 whitespace-nowrap">{{ $laporan->kabupaten }}</td>
+                                <td class="px-4 py-2 whitespace-normal max-w-md">{{ $laporan->isi_laporan }}</td>
+                                <td class="px-4 py-2 whitespace-nowrap text-sm">
+                                    @if ($laporan->status === 'Menunggu')
+                                        <form action="{{ route('laporan.terima', $laporan->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:outline-none text-xs">
+                                                <i class="fas fa-check-circle mr-1"></i> Terima Laporan
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-green-600 font-semibold">Laporan sudah diterima.</span>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
-                        <!-- Repeat this block for other reports -->
+                        @if ($laporans->isEmpty())
+                            <tr>
+                                <td colspan="4" class="px-4 py-2 text-center text-gray-500">Tidak ada laporan.</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
-    <!-- Success message display -->
-    @if (session('success'))
-        <div class="alert alert-success mt-4">
-            <p class="text-green-600 text-sm">{{ session('success') }}</p>
+
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="py-4 text-center text-sm text-gray-500">
+                © 2024 HWDI Lampung. All rights reserved.
+            </div>
         </div>
-    @endif
+    </footer>
+
+    <script>
+        setTimeout(() => {
+            const alert = document.getElementById('success-alert');
+            if (alert) {
+                alert.style.opacity = '0';
+                alert.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => alert.remove(), 500);
+            }
+        }, 3000);
+    </script>
 </body>
 
 </html>

@@ -11,15 +11,23 @@ class LaporanController extends Controller
     
     public function create()
     {
-        return view('input-laporan'); // pastikan nama file dan folder-nya benar
+        return view('input-laporan');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        if (auth()->user()->role === 'dpd') {
-            $laporans = Laporan::with('user')->latest()->get();
-        } else {
-            $laporans = Laporan::where('pelapor', auth()->user()->name)->with('user')->latest()->get();
+        $user = Auth::user();
+
+        $query = Laporan::query();
+
+        if ($user->role === 'dpd') {
+            $query->with('user')->latest();
+        }
+
+        $laporans = $query->get();
+
+        if ($request->filled('status')) {
+            $laporans = $laporans->where('status', $request->status);
         }
 
         return view('hotline-dpc', compact('laporans'));
@@ -37,7 +45,7 @@ class LaporanController extends Controller
         Laporan::create([
             'isi_laporan' => $request->isi_laporan,
             'status' => 'Menunggu',
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'kabupaten' => $user->kabupaten,
         ]);
 

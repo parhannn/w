@@ -15,6 +15,25 @@
     </script>
     <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
         data-border-radius="small"></script>
+    <style>
+        @media (max-width: 768px) {
+            .max-w-8xl {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .title {
+                display: none;
+            }
+
+            .h2-title {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -23,7 +42,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <img src="hwdi.jpg" class="h-8 w-auto" />
-                    <h1 class="ml-3 text-xl font-semibold text-gray-900">Sistem Informasi Pendataan Penyandang
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900 title">Sistem Informasi Pendataan Penyandang
                         Disabilitas HWDI LAMPUNG</h1>
                 </div>
                 <a href="{{ route('logout') }}"
@@ -32,8 +51,8 @@
         </div>
     </header>
     <nav class="bg-white shadow-sm">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center space-x-8 h-14">
+        <div class="max-w-8xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 lg:space-x-8 h-12 sm:h-14">
                 <a href="{{ route('dashboard.dpd') }}"
                     class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Ringkasan</a>
                 <a href="{{ route('data.admin') }}"
@@ -126,9 +145,11 @@
             </div>
         </div>
     </main>
-    <footer class="bg-gray-100 mt-auto">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <p class="text-center text-gray-600 text-sm">© 2024 HWDI Lampung. Hak Cipta Dilindungi.</p>
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="py-4 text-center text-sm text-gray-500">
+                © 2024 HWDI Lampung. All rights reserved.
+            </div>
         </div>
     </footer>
     </div>

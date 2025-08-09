@@ -40,6 +40,10 @@
             .title {
                 display: none;
             }
+
+            .h2-title {
+                text-align: center;
+            }
         }
 
         :where([class^="ri-"])::before {
@@ -89,7 +93,7 @@
     </header>
     <main class="container mx-auto px-4 py-6">
         <div class="bg-white rounded shadow-sm p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-6">
+            <h2 class="text-xl font-semibold mb-6 h2-title">
                 Statistik Utama {{ Auth::user()->kabupaten ?? '-' }}
             </h2>
             <div class="flex flex-col md:flex-row gap-6">
@@ -102,6 +106,12 @@
             </div>
         </div>
     </main>
+
+    <footer class="bg-gray-100 mt-auto">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <p class="text-center text-gray-600 text-sm">© 2024 HWDI Lampung. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -206,10 +216,13 @@
                             type: 'shadow'
                         }
                     },
-                    legend: isMobile ? false : {
+                    legend: {
                         textStyle: {
                             color: '#1f2937',
+                            fontSize: isMobile ? 8 : 12 
                         },
+                        itemWidth: isMobile ? 8 : 25, 
+                        itemHeight: isMobile ? 8 : 14
                     },
                     grid: {
                         left: '0%',
