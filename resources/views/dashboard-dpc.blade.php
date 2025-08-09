@@ -28,6 +28,20 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
     <style>
+        @media (max-width: 768px) {
+            .max-w-8xl {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .title {
+                display: none;
+            }
+        }
+
         :where([class^="ri-"])::before {
             content: "\f3c2";
         }
@@ -47,7 +61,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <img src="hwdi.jpg" class="h-8 w-auto" />
-                    <h1 class="ml-3 text-xl font-semibold text-gray-900">
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900 title">
                         Sistem Informasi Pendataan Penyandang Disabilitas HWDI LAMPUNG
                     </h1>
                 </div>
@@ -57,18 +71,18 @@
         </div>
     </header>
     <nav class="bg-white shadow-sm">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center space-x-8 h-14">
+        <div class="max-w-8xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 lg:space-x-8 h-12 sm:h-14">
                 <a href="{{ route('dashboard.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-custom text-sm font-medium text-gray-900">Ringkasan</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-custom text-xs sm:text-sm font-medium text-gray-900">Ringkasan</a>
                 <a href="{{ route('data.anggota.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Data
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Data
                     Anggota</a>
                 <a href="{{ route('download.data.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Hotline</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Hotline</a>
             </div>
         </div>
     </nav>
@@ -80,14 +94,15 @@
             </h2>
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="w-full md:w-1/2">
-                    <div id="pieChart" class="h-80 w-full"></div>
+                    <div id="pieChart" class="h-64 sm:h-72 md:h-80 w-full"></div>
                 </div>
                 <div class="w-full md:w-1/2">
-                    <div id="barChart" class="h-80 w-full"></div>
+                    <div id="barChart" class="h-64 sm:h-72 md:h-80 w-full"></div>
                 </div>
             </div>
         </div>
     </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const kecamatanSummary = @json($dataPerKecamatan);
@@ -135,6 +150,27 @@
                         show: false
                     },
                     data: kecamatanSummary
+                }],
+                media: [{
+                    query: {
+                        maxWidth: 480
+                    },
+                    option: {
+                        legend: {
+                            show: false
+                        },
+                        series: [{
+                            center: ['50%', '45%'],
+                            radius: ['35%', '65%'],
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '14',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        }]
+                    }
                 }]
             };
             pieChart.setOption(pieOption);
@@ -159,43 +195,52 @@
             }));
 
             const barChart = echarts.init(document.getElementById('barChart'));
-            const barOption = {
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
-                legend: {
-                    textStyle: {
-                        color: '#1f2937'
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'category',
-                    data: kecamatanLabels,
-                    axisLabel: {
-                        rotate: 45,
-                        color: '#1f2937'
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLabel: {
-                        color: '#1f2937'
-                    }
-                },
-                series: seriesData
-            };
-            barChart.setOption(barOption);
+
+            function getBarOption() {
+                const isMobile = window.innerWidth < 480;
+
+                return {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: isMobile ? false : {
+                        textStyle: {
+                            color: '#1f2937',
+                        },
+                    },
+                    grid: {
+                        left: '0%',
+                        right: '0%',
+                        bottom: isMobile ? '0%' : '0%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: kecamatanLabels,
+                        axisLabel: {
+                            rotate: isMobile ? 60 : 45,
+                            fontSize: isMobile ? 8 : 12,
+                            color: '#1f2937'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            fontSize: isMobile ? 8 : 12,
+                            color: '#1f2937'
+                        }
+                    },
+                    series: seriesData
+                };
+            }
+            const chart = echarts.init(document.getElementById('barChart'));
+            chart.setOption(getBarOption());
+
             window.addEventListener('resize', function() {
-                pieChart.resize();
+                pieChart.resize(getBarOption());
                 barChart.resize();
             });
         });

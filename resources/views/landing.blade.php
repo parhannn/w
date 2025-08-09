@@ -1,7 +1,14 @@
 <html>
 
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1">
+    </script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
+        data-border-radius="small"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -29,16 +36,16 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $index => $item)
-                    <tr>
-                        <td class="py-2 px-4 border-b">{{ $index + 1 }}</td>
-                        <td class="py-2 px-4 border-b">DPC {{ $item->kabupaten }}</td>
-                        <td class="py-2 px-4 border-b">{{ $item->jumlah }}</td>
-                    </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">{{ $index + 1 }}</td>
+                            <td class="py-2 px-4 border-b">DPC {{ $item->kabupaten }}</td>
+                            <td class="py-2 px-4 border-b">{{ $item->jumlah }}</td>
+                        </tr>
                     @endforeach
-                    @if($data->isEmpty())
-                    <tr>
-                        <td colspan="3" class="py-2 px-4 text-center">Tidak ada data anggota</td>
-                    </tr>
+                    @if ($data->isEmpty())
+                        <tr>
+                            <td colspan="3" class="py-2 px-4 text-center">Tidak ada data anggota</td>
+                        </tr>
                     @endif
                 </tbody>
                 <tfoot>

@@ -32,6 +32,20 @@
             content: "\f3c2";
         }
 
+        @media (max-width: 768px) {
+            .max-w-8xl {
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .title {
+                display: none;
+            }
+        }
+
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -47,7 +61,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <img src="hwdi.jpg" class="h-8 w-auto" />
-                    <h1 class="ml-3 text-xl font-semibold text-gray-900">
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900 title">
                         Sistem Informasi Pendataan Penyandang Disabilitas HWDI LAMPUNG
                     </h1>
                 </div>
@@ -57,18 +71,18 @@
         </div>
     </header>
     <nav class="bg-white shadow-sm">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center space-x-8 h-14">
+        <div class="max-w-8xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 lg:space-x-8 h-12 sm:h-14">
                 <a href="{{ route('dashboard.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Ringkasan</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Ringkasan</a>
                 <a href="{{ route('data.anggota.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-custom text-sm font-medium text-gray-900">Data
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-custom text-xs sm:text-sm font-medium text-gray-900">Data
                     Anggota</a>
                 <a href="{{ route('download.data.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpc') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Hotline</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Hotline</a>
             </div>
         </div>
     </nav>
