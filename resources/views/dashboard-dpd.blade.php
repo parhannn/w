@@ -104,9 +104,6 @@
 
     <script>
         const pieChart = echarts.init(document.getElementById('pieChart'));
-        const barChart = echarts.init(document.getElementById('barChart'));
-
-        const disabilitasSummary = @json($disabilitasSummary);
         const kabupatenSummary = @json($jumlahKabupatenSummary);
 
         pieChart.setOption({
@@ -131,9 +128,41 @@
             }]
         });
 
+        const barChart = echarts.init(document.getElementById('barChart'));
+        const kabupaten = [
+            'Lampung Selatan',
+            'Lampung Barat',
+            'Lampung Tengah',
+            'Mesuji',
+            'Pringsewu',
+            'Pesisir Barat',
+            'Tanggamus',
+            'Tulang Bawang',
+            'Tulang Bawang Barat',
+            'Way Kanan',
+            'Bandar Lampung',
+            'Metro',
+            'Pesawaran',
+            'Lampung Utara'
+        ];
+        const disabilitasSummary = @json($disabilitasSummary);
+
+        const seriesData = kabupaten.map(kabupaten => ({
+            name: kabupaten,
+            type: 'bar',
+            stack: 'total',
+            emphasis: {
+                focus: 'series'
+            },
+            data: disabilitasSummary.map(item => item[kabupaten])
+        }));
+
         barChart.setOption({
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
             },
             xAxis: {
                 type: 'category',
@@ -145,11 +174,7 @@
             yAxis: {
                 type: 'value'
             },
-            series: [{
-                data: disabilitasSummary.map(item => item.value),
-                type: 'bar',
-                color: '#1F4690'
-            }]
+            series: seriesData
         });
 
         window.addEventListener('resize', function() {

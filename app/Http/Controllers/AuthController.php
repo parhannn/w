@@ -15,28 +15,28 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate(); // penting!
-
             $user = Auth::user();
 
             if ($user->role == 'dpd') {
-                return redirect()->route('dashboard.dpd');
+                $request->session()->regenerate(); 
+
+                return redirect()->intended('dashboard-dpd');
             } elseif ($user->role == 'dpc') {
-                return redirect()->route('dashboard.dpc');
-            } else {
-                Auth::logout();
-                return redirect('/login')->withErrors(['role' => 'Role tidak dikenali.']);
+                $request->session()->regenerate(); 
+
+                return redirect()->intended('dashboard-dpc');
             }
         }
 
-        dd("salah");
-
-        return redirect()->back()->withErrors([
+        return back()->withErrors([
             'email' => 'Email atau password salah',
-        ]);
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)

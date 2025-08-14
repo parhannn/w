@@ -80,15 +80,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
-            const namaInput = document.getElementById('pelapor');
             const isiInput = document.getElementById('isi-laporan');
             const submitBtn = form.querySelector('button[type="submit"]');
 
             function validateForm() {
-                const namaValid = namaInput.value.trim().length >= 2;
-                const isiValid = isiInput.value.trim().length >= 50;
+                const isiValid = isiInput.value.trim().length >= 25;
 
-                if (namaValid && isiValid) {
+                if (isiValid) {
                     submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     submitBtn.disabled = false;
                 } else {
@@ -96,8 +94,6 @@
                     submitBtn.disabled = true;
                 }
             }
-
-            namaInput.addEventListener('input', validateForm);
             isiInput.addEventListener('input', validateForm);
 
             validateForm();
@@ -109,7 +105,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
             form.addEventListener('submit', function(e) {
-                // e.preventDefault(); // Hapus ini jika ingin form benar-benar terkirim ke backend
 
                 const submitBtn = form.querySelector('button[type="submit"]');
                 const originalText = submitBtn.innerHTML;

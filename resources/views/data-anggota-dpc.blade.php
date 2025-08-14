@@ -301,7 +301,7 @@
                             <div class="absolute top-3 left-3 pointer-events-none">
                                 <i class="ri-map-pin-line text-gray-400"></i>
                             </div>
-                            <textarea id="alamat" name="alamat" rows="3"
+                            <textarea id="alamat" name="alamat" rows="3" required
                                 class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors resize-none"
                                 placeholder="Masukkan alamat lengkap termasuk RT/RW"></textarea>
                         </div>
@@ -357,7 +357,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ri-calendar-line text-gray-400"></i>
                             </div>
-                            <input type="date" id="tanggal_lahir" name="tanggal_lahir"
+                            <input type="date" id="tanggal_lahir" name="tanggal_lahir" required
                                 class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" />
                         </div>
                     </div>
@@ -369,7 +369,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ri-book-open-line text-gray-400"></i>
                             </div>
-                            <select id="agama" name="agama"
+                            <select id="agama" name="agama" required
                                 class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors appearance-none bg-white">
                                 <option value="">Pilih Agama</option>
                                 <option value="Islam">Islam</option>
@@ -394,7 +394,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ri-wheelchair-line text-gray-400"></i>
                             </div>
-                            <select id="jenis_disabilitas" name="jenis_disabilitas"
+                            <select id="jenis_disabilitas" name="jenis_disabilitas" required
                                 class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors appearance-none bg-white">
                                 <option value="">Pilih Jenis Disabilitas</option>
                                 <option value="Tunanetra">Tunanetra</option>
@@ -472,7 +472,7 @@
                             <div class="absolute top-3 left-3 pointer-events-none">
                                 <i class="ri-map-pin-line text-gray-400"></i>
                             </div>
-                            <textarea id="editAlamat" name="alamat" rows="3"
+                            <textarea id="editAlamat" name="alamat" rows="3" required
                                 class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors resize-none"
                                 placeholder="Masukkan alamat lengkap termasuk RT/RW"></textarea>
                         </div>
@@ -527,7 +527,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ri-calendar-line text-gray-400"></i>
                             </div>
-                            <input type="date" id="editTanggal_lahir" name="tanggal_lahir"
+                            <input type="date" id="editTanggal_lahir" name="tanggal_lahir" required
                                 class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors" />
                         </div>
                     </div>
@@ -539,7 +539,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ri-book-open-line text-gray-400"></i>
                             </div>
-                            <select id="editAgama" name="agama"
+                            <select id="editAgama" name="agama" required
                                 class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors appearance-none bg-white">
                                 <option value="">Pilih Agama</option>
                                 <option value="Islam">Islam</option>
@@ -564,7 +564,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="ri-wheelchair-line text-gray-400"></i>
                             </div>
-                            <select id="editJenis_disabilitas" name="jenis_disabilitas"
+                            <select id="editJenis_disabilitas" name="jenis_disabilitas" required
                                 class="w-full pl-10 pr-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors appearance-none bg-white">
                                 <option value="">Pilih Jenis Disabilitas</option>
                                 <option value="Tunanetra">Tunanetra</option>

@@ -15,14 +15,6 @@ class DashboardDPDController extends Controller
             'Tunagrahita', 'Tunadaksa', 'Tunalaras', 'Disabilitas Ganda'
         ];
 
-        $disabilitasSummary = [];
-        foreach ($jenisDisabilitas as $jenis) {
-            $disabilitasSummary[] = [
-                'name' => $jenis,
-                'value' => Anggota::where('jenis_disabilitas', $jenis)->count()
-            ];
-        }
-
         // Rekap berdasarkan kabupaten
         $kabupatens = [
             'Lampung Selatan',
@@ -40,6 +32,19 @@ class DashboardDPDController extends Controller
             'Pesawaran',
             'Lampung Utara'
         ];
+
+        $disabilitasSummary = [];
+
+        foreach ($jenisDisabilitas as $jenis) {
+            $row = ['name' => $jenis];
+            foreach ($kabupatens as $kabupaten) {
+                $row[$kabupaten] = Anggota::where('jenis_disabilitas', $jenis)
+                                        ->where('kabupaten', $kabupaten)
+                                        ->count();
+            }
+            $disabilitasSummary[] = $row;
+        }
+
         $jumlahKabupatenSummary = [];
 
         foreach ($kabupatens as $kabupaten) {
