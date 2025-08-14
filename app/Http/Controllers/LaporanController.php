@@ -33,14 +33,12 @@ class LaporanController extends Controller
         return view('hotline-dpc', compact('laporans'));
     }
 
-    
-
     public function store(Request $request)
     {
         $user = Auth::user();
 
         $request->validate([
-            'isi_laporan' => 'required|string|min:50',
+            'isi_laporan' => 'required|string|min:25',
         ]);
         Laporan::create([
             'isi_laporan' => $request->isi_laporan,
