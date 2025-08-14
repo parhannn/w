@@ -64,6 +64,10 @@
                     </div>
                 </div>
 
+                <p id="error-msg" class="text-red-500 text-sm mt-2 hidden">
+                    Minimal laporan harus 25 karakter.
+                </p>
+
                 {{-- Tombol Submit --}}
                 <div class="pt-4">
                     <button type="submit"
@@ -82,6 +86,7 @@
             const form = document.querySelector('form');
             const isiInput = document.getElementById('isi-laporan');
             const submitBtn = form.querySelector('button[type="submit"]');
+            const errorMsg = document.getElementById('error-msg');
 
             function validateForm() {
                 const isiValid = isiInput.value.trim().length >= 25;
@@ -89,16 +94,20 @@
                 if (isiValid) {
                     submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     submitBtn.disabled = false;
+                    errorMsg.classList.add('hidden');
                 } else {
                     submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
                     submitBtn.disabled = true;
+                    errorMsg.classList.remove('hidden');
                 }
             }
+
             isiInput.addEventListener('input', validateForm);
 
             validateForm();
         });
     </script>
+
 
     {{-- Loading Simulasi --}}
     <script>
