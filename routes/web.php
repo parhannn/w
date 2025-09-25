@@ -12,8 +12,8 @@ use App\Http\Controllers\HotlinedpcController;
 use App\Http\Controllers\DownloadDpdController;
 use App\Http\Controllers\DownloadDpcController;
 use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\DashboardDpcController;
-use App\Http\Controllers\DashboardDpdController;
+use App\Http\Controllers\DashboarddpcController;
+use App\Http\Controllers\DashboarddpdController;
 use App\Http\Controllers\DataAdminController;
 use App\Http\Controllers\CreateAdminDpcController;
 // --------------------
@@ -56,9 +56,9 @@ Route::middleware('auth')->group(function () {
 //     return view('dashboard-dpd');
 // })->middleware(['auth'])->name('dashboard.dpd');
 
-Route::get('/dashboard-dpc', function () {
-    return view('dashboard-dpc');
-})->middleware(['auth'])->name('dashboard.dpc');
+// Route::get('/dashboard-dpc', function () {
+//     return view('dashboard-dpc');
+// })->middleware(['auth'])->name('dashboard.dpc');
 
 // --------------------
 // ADMIN
@@ -91,11 +91,12 @@ Route::delete('/data-anggota-dpc/{anggota}', [AnggotaController::class, 'destroy
 Route::get('/rekap-anggota', [AnggotaController::class, 'rekap']);
 
 Route::post('/laporan/terima/{id}', [LaporanController::class, 'terima'])->name('laporan.terima');
+Route::post('/laporan/tolak/{id}', [LaporanController::class, 'tolak'])->name('laporan.tolak');
 
 Route::get('/download-data-pdf', [DownloadDpdController::class, 'generatePDF'])->name('download.data.pdf');
 
-Route::get('/dashboard-dpc', [DashboardDpcController::class, 'index'])->name('dashboard.dpc');
-Route::get('/dashboard-dpd', [DashboardDPDController::class, 'index'])->name('dashboard.dpd');
+Route::get('/dashboard-dpc', [DashboarddpcController::class, 'index'])->name('dashboard.dpc');
+Route::get('/dashboard-dpd', [DashboarddpdController::class, 'index'])->name('dashboard.dpd');
 
 Route::get('/downloaddpd', [DownloadDpdController::class, 'index'])->name('download.data.dpd');
 Route::get('/downloaddpd/export', [DownloadDpdController::class, 'export'])->name('downloaddpd.export');

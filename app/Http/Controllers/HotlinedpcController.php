@@ -8,11 +8,21 @@ use Illuminate\Http\Request;
 
 class HotlinedpcController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
         $query = Laporan::query();
+        
+        if ($request->filled('isi_laporan')) {
+            $query->where('kabupaten', $user->kabupaten);
+            $query->where('isi_laporan', 'like', '%' . $request->isi_laporan . '%');
+        }
+    
+        if ($request->filled('status')) {
+            $query->where('kabupaten', $user->kabupaten);
+            $query->where('status', $request->status);
+        }
         
         $laporans = $query->where('kabupaten', $user->kabupaten)->paginate(15)->withQueryString();
 

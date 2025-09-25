@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Informasi HWDI Lampung</title>
+    <title>HWDI Admin DPD | Data Anggota</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
@@ -16,12 +15,12 @@
     <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
         data-border-radius="small"></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
         a {
             text-decoration: none !important;
+        }
+        
+        .title {
+            margin-top: 8px;
         }
 
         @media (max-width: 768px) {
@@ -49,7 +48,7 @@
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <img src="hwdi.jpg" class="h-8 w-auto" />
+                    <img src="hwdi.jpg" class="h-8 w-auto block" alt="Logo HWDI"/>
                     <h1 class="ml-3 text-xl font-semibold text-gray-900 title">Sistem Informasi Pendataan Penyandang
                         Disabilitas HWDI LAMPUNG</h1>
                 </div>
@@ -73,64 +72,64 @@
                     class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpd') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Hotline</a>
+                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Layanan Pengaduan</a>
             </div>
         </div>
     </nav>
-    <main class="flex-1 py-8">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white shadow rounded-lg overflow-hidden">
-                <div class="overflow-x-auto w-full">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+    <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white shadow overflow-hidden !rounded-button">
+            <div class="overflow-x-auto w-full">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                No</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nama Kabupaten/Kota</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Jumlah Anggota</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($data as $index => $item)
                             <tr>
-                                <th scope="col" <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                No</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Nama Kabupaten/Kota</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Jumlah Anggota</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Aksi</th>
-                                        </tr>
-                                    </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($data as $index => $item)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->kabupaten }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->jumlah }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <div class="flex space-x-4">
-                                            <button
-                                                onclick="showAnggota('{{ route('anggota.modal', ['kabupaten' => $item->kabupaten]) }}')"
-                                                class="text-blue-600 hover:text-blue-800">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->kabupaten }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->jumlah }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <div class="flex space-x-4">
+                                        <button
+                                            onclick="showAnggota('{{ route('anggota.modal', ['kabupaten' => $item->kabupaten]) }}')"
+                                            class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        @if ($data->isEmpty())
+                            <tr>
+                                <td colspan="4" class="text-center">Tidak ada data</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
             </div>
     </main>
 
     <footer class="bg-white border-t border-gray-200">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="py-4 text-center text-sm text-gray-500">
-                © 2024 HWDI Lampung. All rights reserved.
+                © 2025 HWDI Lampung - WWN
             </div>
         </div>
     </footer>

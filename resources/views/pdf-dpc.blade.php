@@ -49,7 +49,7 @@
 
 <body>
     <div class="header">
-        <img class="logo" src="{{ public_path('hwdi.jpg') }}" />
+        <img class="logo" src="hwdi.jpg" />
         <h2>Data Anggota HWDI Lampung</h2>
     </div>
     <p>Kabupaten/Kota: {{ $kabupaten ?? 'Semua' }}, Kecamatan: {{ $kecamatan ?? 'Semua' }}, Jenis Disabilitas:

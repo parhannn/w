@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Admin DPC - Sistem Informasi Pendataan Penyandang Disabilitas</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>HWDI Admin DPC | Hotline</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
         tailwind.config = {
@@ -95,7 +96,7 @@
                     class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpc') }}"
-                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-custom text-xs sm:text-sm font-medium text-gray-900">Hotline</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-custom text-xs sm:text-sm font-medium text-gray-900">Layanan Pengaduan</a>
             </div>
         </div>
     </nav>
@@ -111,27 +112,20 @@
                 </h2>
 
                 <div class="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
-                    <form action="{{ route('laporan.index') }}" method="GET"
+                    <form action="{{ route('hotline.dpc') }}" method="GET"
                         class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                        <!-- Filter Status -->
-                        <div class="relative w-full sm:w-auto">
-                            <select
-                                class="bg-white border border-gray-300 rounded-button px-4 py-2 pr-8 text-sm text-gray-700 focus:ring-2 focus:ring-primary w-full sm:w-auto"
-                                name="status" onchange="this.form.submit()">
-                                <option value="">Semua Status</option>
-                                <option value="Menunggu">Menunggu</option>
-                                <option value="Dibaca">Dibaca</option>
-                            </select>
-                        </div>
-
                         <!-- Pencarian -->
-                        <div class="relative w-full sm:w-64">
-                            <input type="text" placeholder="Cari laporan..."
-                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm focus:ring-2 focus:ring-primary w-full">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="ri-search-line text-gray-400"></i>
-                            </div>
-                        </div>
+                        <input type="text" name="isi_laporan" placeholder="🔎 Cari laporan..."
+                            class="pl-4 pr-4 py-2 border rounded-lg w-full sm:w-64 text-sm">
+                        
+                        <!-- Filter Status -->
+                        <select name="status" onchange="this.form.submit()" 
+                            class="bg-white border border-gray-300 rounded-button px-4 py-2 pr-8 text-sm text-gray-700">
+                            <option value="" {{ request('status')=='' ? 'selected' : '' }}>Semua Status</option>
+                            <option value="Menunggu" {{ request('status')=='Menunggu' ? 'selected' : '' }}>Menunggu</option>
+                            <option value="Dibaca" {{ request('status')=='Dibaca' ? 'selected' : '' }}>Ditindaklanjuti</option>
+                            <option value="Ditolak" {{ request('status')=='Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                        </select>
                     </form>
 
                     <!-- Tombol Buat Laporan -->
@@ -159,18 +153,15 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($laporans as $index => $laporan)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $laporans->firstItem() + $index }}</td>
                                     <td class="px-6 py-4 whitespace-normal max-w-md">{{ $laporan->isi_laporan }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @if (auth()->user()->role === 'dpd' && $laporan->status !== 'Dibaca')
-                                            <form action="{{ route('laporan.terima', $laporan->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="text-blue-500 hover:underline">Terima</button>
-                                            </form>
-                                        @else
-                                            <span class="text-gray-500">{{ $laporan->status }}</span>
-                                        @endif
+                                        <span class="font-semibold
+                                            {{ $laporan->status == 'Menunggu' ? 'text-yellow-600' : 
+                                            ($laporan->status == 'Dibaca' ? 'text-green-600' : 
+                                            ($laporan->status == 'Ditolak' ? 'text-red-600' : '')) }}">
+                                            {{ $laporan->status == 'Dibaca' ? 'Ditindaklanjuti' : $laporan->status }}
+                                        </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-normal max-w-md">{{ $laporan->kabupaten }}</td>
                                 </tr>
@@ -187,25 +178,34 @@
             </div>
 
             <!-- Pagination -->
-            <div class="flex items-center justify-between">
-                <div class="text-sm text-gray-700">
-                    Menampilkan <span class="font-medium">1</span> - <span class="font-medium">5</span> dari <span
-                        class="font-medium">25</span> laporan
-                </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4">
+                <p class="text-sm text-gray-600 text-center sm:text-left">
+                    Menampilkan {{ $laporans->firstItem() }} - {{ $laporans->lastItem() }} dari {{ $laporans->total() }} data
+                </p>
                 <div class="flex items-center space-x-2">
-                    <button class="px-3 py-2 text-sm text-gray-500 bg-white border border-gray-300 rounded-button"
-                        disabled>
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
-                    <button
-                        class="px-3 py-2 text-sm text-white bg-primary border border-primary rounded-button">1</button>
-                    <button
-                        class="px-3 py-2 text-sm text-gray-500 bg-white border border-gray-300 rounded-button">2</button>
-                    <button
-                        class="px-3 py-2 text-sm text-gray-500 bg-white border border-gray-300 rounded-button">3</button>
-                    <button class="px-3 py-2 text-sm text-gray-500 bg-white border border-gray-300 rounded-button">
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
+                    @if ($laporans->onFirstPage())
+                        <button class="px-3 py-1 border rounded text-sm text-gray-400" disabled>Previous</button>
+                    @else
+                        <a href="{{ $laporans->previousPageUrl() }}"
+                            class="px-3 py-1 border rounded hover:bg-gray-50 text-sm">Previous</a>
+                    @endif
+
+                    @foreach ($laporans->getUrlRange(1, $laporans->lastPage()) as $page => $url)
+                        @if ($page == $laporans->currentPage())
+                            <span
+                                class="px-3 py-1 border rounded bg-primary text-white text-sm">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}"
+                                class="px-3 py-1 border rounded hover:bg-gray-50 text-sm">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    @if ($laporans->hasMorePages())
+                        <a href="{{ $laporans->nextPageUrl() }}"
+                            class="px-3 py-1 border rounded hover:bg-gray-50 text-sm">Next</a>
+                    @else
+                        <button class="px-3 py-1 border rounded text-sm text-gray-400" disabled>Next</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -213,7 +213,7 @@
 
     <footer class="bg-gray-100 mt-auto">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <p class="text-center text-gray-600 text-sm">© 2024 HWDI Lampung. All rights reserved.</p>
+            <p class="text-center text-gray-600 text-sm">&copy; 2025 HWDI Lampung - WWN</p>
         </div>
     </footer>
 </body>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin DPC - Sistem Informasi Pendataan Penyandang Disabilitas</title>
+    <title>HWDI Admin DPC | Ringkasan</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
         tailwind.config = {
@@ -86,7 +86,7 @@
                     class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpc') }}"
-                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Hotline</a>
+                    class="inline-flex items-center px-1 sm:px-2 pt-1 border-b-2 border-transparent text-xs sm:text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Layanan Pengaduan</a>
             </div>
         </div>
     </nav>
@@ -109,7 +109,7 @@
 
     <footer class="bg-gray-100 mt-auto">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <p class="text-center text-gray-600 text-sm">© 2024 HWDI Lampung. All rights reserved.</p>
+            <p class="text-center text-gray-600 text-sm">&copy; 2025 HWDI Lampung - WWN</p>
         </div>
     </footer>
 

@@ -1,8 +1,16 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Pendataan HWDI Provinsi Lampung</title>
+    <meta name="description" content="Sistem Pendataan Himpunan Wanita Disabilitas Indonesia (HWDI) Provinsi Lampung. Akses data DPD & DPC dengan mudah dan transparan." />
+    <meta name="keywords" content="HWDI Lampung, pendataan disabilitas, DPD HWDI, DPC HWDI, organisasi disabilitas Lampung" />
+    <meta property="og:title" content="Sistem Pendataan HWDI Provinsi Lampung" />
+    <meta property="og:description" content="Portal resmi pendataan HWDI Lampung. Kelola data anggota DPD & DPC dengan mudah." />
+    <meta property="og:image" content="{{ asset('hwdi.jpg') }}" />
+    <meta property="og:url" content="https://pendataanhwdiprovinsilampung.my.id/" />
+    <meta property="og:type" content="website" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script
         src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1">
@@ -10,12 +18,11 @@
     <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
         data-border-radius="small"></script>
 </head>
-
 <body class="bg-gray-100">
     <div class="container mx-auto p-4">
         <div class="flex justify-between items-center mb-4">
             <div class="flex items-center">
-                <img class="h-12" src="hwdi.jpg" />
+                <img class="h-12" src="hwdi.jpg" alt="Logo HWDI Lampung"/>
             </div>
             <a href="/login" class="bg-black text-white px-4 py-2 rounded">
                 Login
@@ -59,5 +66,4 @@
         </div>
     </div>
 </body>
-
 </html>

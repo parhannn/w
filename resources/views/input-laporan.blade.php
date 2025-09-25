@@ -44,7 +44,7 @@
                     <i class="ri-file-text-line text-2xl text-primary"></i>
                 </div>
                 <h1 class="text-3xl font-bold text-gray-900 mb-2">Form Laporan</h1>
-                <p class="text-gray-600">Sampaikan laporan Anda dengan lengkap dan jelas</p>
+                <p class="text-gray-600">Sampaikan laporan anda dengan lengkap dan jelas</p>
             </div>
 
             <form action="{{ route('laporan.store') }}" method="POST">

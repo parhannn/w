@@ -58,4 +58,12 @@ class LaporanController extends Controller
 
         return redirect()->back()->with('success', 'Laporan ditandai telah dibaca.');
     }
+
+    public function tolak($id)
+    {
+        $laporan = Laporan::findOrFail($id);
+        $laporan->update(['status' => 'Ditolak']);
+
+        return redirect()->back()->with('success', 'Laporan telah ditolak.');
+    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Informasi Pendataan Penyandang Disabilitas</title>
+    <title>HWDI Admin DPD | Hotline</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
@@ -65,7 +65,7 @@
                     class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Download
                     Data Anggota</a>
                 <a href="{{ route('hotline.dpd') }}"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-custom text-sm font-medium text-gray-900">Hotline</a>
+                    class="inline-flex items-center px-1 pt-1 border-b-2 border-custom text-sm font-medium text-gray-900">Layanan Pengaduan</a>
             </div>
         </div>
     </nav>
@@ -110,8 +110,17 @@
                                                 <i class="fas fa-check-circle mr-1"></i> Terima Laporan
                                             </button>
                                         </form>
-                                    @else
-                                        <span class="text-green-600 font-semibold">Laporan sudah diterima.</span>
+                                        <form action="{{ route('laporan.tolak', $laporan->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="mt-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-800 focus:outline-none text-xs">
+                                                <i class="fas fa-times-circle mr-1"></i> Tolak Laporan
+                                            </button>
+                                        </form>
+                                    @elseif ($laporan->status === 'Dibaca')
+                                        <span class="text-green-600 font-semibold">Ditindaklanjuti</span>
+                                    @elseif ($laporan->status === 'Ditolak')
+                                        <span class="text-red-600 font-semibold">Ditolak</span>
                                     @endif
                                 </td>
                             </tr>
@@ -130,7 +139,7 @@
     <footer class="bg-white border-t border-gray-200">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="py-4 text-center text-sm text-gray-500">
-                © 2024 HWDI Lampung. All rights reserved.
+                © 2025 HWDI Lampung - WWN
             </div>
         </div>
     </footer>

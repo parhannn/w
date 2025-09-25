@@ -94,13 +94,13 @@
                         <div class="space-y-2">
                             <label class="block text-sm font-medium text-gray-700">Nama Admin DPC</label>
                             <input name="name" type="text"
-                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2" required
+                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2"
                                 placeholder="Masukkan nama admin" />
                         </div>
                         <div class="space-y-2">
                             <label class="block text-sm font-medium text-gray-700">Kabupaten/Kota</label>
                             <select name="kabupaten"
-                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2" required>
+                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2">
                                 <option value="">Pilih Kabupaten/Kota</option>
                                 @php
                                     $kabupatenList = [
@@ -132,13 +132,13 @@
                         <div class="space-y-2">
                             <label class="block text-sm font-medium text-gray-700">Email</label>
                             <input name="email" type="email"
-                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2" required
+                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2"
                                 placeholder="Masukkan email" />
                         </div>
                         <div class="space-y-2">
                             <label class="block text-sm font-medium text-gray-700">Password</label>
                             <input name="password" type="password"
-                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2" required
+                                class="block w-full !rounded-button border-gray-300 focus:border-custom focus:ring-custom text-lg py-2"
                                 placeholder="Masukkan password" />
                         </div>
                     </div>

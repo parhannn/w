@@ -17,8 +17,8 @@ class AkunSeeder extends Seeder
         User::create([
             "name" => "admin DPD",
             "email" => "admin.dpd@hwdilampung.or.id",
-            "password" => Hash::make("123456"),
-            "plain_password" => "123456",
+            "password" => Hash::make("Rahasia123"),
+            "plain_password" => "Rahasia123",
             "role" => "dpd",
         ]);
        
